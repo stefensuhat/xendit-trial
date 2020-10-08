@@ -3,21 +3,111 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/styles": "^4.10.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.0.4",
+    "@testing-library/user-event": "^12.1.7",
+    "axios": "^0.20.0",
+    "collect.js": "^4.28.2",
+    "date-fns": "^2.16.1",
+    "enzyme": "^3.11.0",
+    "history": "^5.0.0",
+    "lodash": "^4.17.20",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-router": "^6.0.0-beta.0",
+    "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "3.4.3"
   },
+  "devDependencies": {
+    "babel-plugin-module-resolver": "^4.0.0",
+    "customize-cra": "^1.0.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-react": "^7.21.3",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "react-app-rewired": "^2.1.6"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "parser": "babel-eslint",
+    "extends": [
+      "airbnb"
+    ],
+    "globals": {
+      "localStorage": true,
+      "document": true,
+      "window": true
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": [
+            "src",
+            "src/pages",
+            "src/components",
+            "src/constants"
+          ]
+        }
+      }
+    },
+    "rules": {
+      "no-tabs": 0,
+      "global-require": 0,
+      "max-len": [
+        1,
+        120
+      ],
+      "indent": [
+        1,
+        4
+      ],
+      "react/jsx-indent": [
+        1,
+        4
+      ],
+      "react/jsx-indent-props": [
+        1,
+        4
+      ],
+      "import/extensions": [
+        0
+      ],
+      "import/no-unresolved": 0,
+      "import/no-extraneous-dependencies": [
+        "error",
+        {
+          "packageDir": "./"
+        }
+      ],
+      "react/jsx-filename-extension": [
+        1,
+        {
+          "extensions": [
+            ".js"
+          ]
+        }
+      ],
+      "react/jsx-props-no-spreading": 0,
+      "react/state-in-constructor": 0,
+      "react/forbid-prop-types": 0,
+      "no-unused-expressions": [
+        "error",
+        {
+          "allowTernary": true
+        }
+      ],
+      "react-hooks/exhaustive-deps": 0
+    }
   },
   "browserslist": {
     "production": [
