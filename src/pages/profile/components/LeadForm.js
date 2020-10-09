@@ -1,22 +1,9 @@
 import {
-    Box,
-    fade,
-    Paper,
-    Typography,
-    List,
-    ListItem,
-    ListItemSecondaryAction,
-    ListItemText,
-    Table,
-    TableBody,
-    TableRow,
-    TableCell,
+    Box, fade, Paper, Table, TableBody, TableCell, TableRow, Typography,
 } from '@material-ui/core';
-import accounting from 'accounting';
 import { makeStyles } from '@material-ui/styles';
+import accounting from 'accounting';
 import cx from 'clsx';
-import { Field, Form } from 'formik';
-import { TextField } from 'formik-material-ui';
 import startCase from 'lodash/startCase';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -112,7 +99,7 @@ function LeadForm() {
                 <Table>
                     <TableBody>
                         {keys.map(({ title, parentKey, objects }) => (
-                            <>
+                            <React.Fragment key={objects}>
                                 <TableRow>
                                     <TableCell classes={{ root: classes.cell }} colSpan={3}>
                                         <Typography variant="h6" color="primary">{title}</Typography>
@@ -131,7 +118,7 @@ function LeadForm() {
                                     }
 
                                     return (
-                                        <TableRow>
+                                        <TableRow key={object.key}>
                                             <TableCell classes={{ root: classes.cell }}>
                                                 {object.label || startCase(object.key)}
                                             </TableCell>
@@ -142,7 +129,7 @@ function LeadForm() {
                                     );
                                 })}
 
-                            </>
+                            </React.Fragment>
                         ))}
                     </TableBody>
                 </Table>

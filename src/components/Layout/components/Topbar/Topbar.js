@@ -49,7 +49,7 @@ const Topbar = (props) => {
                     </Typography>
 
                     <div className={classes.flexGrow} />
-                    {authenticated
+                    {!authenticated
                         ? (
                             <ProfileButton />
                         )

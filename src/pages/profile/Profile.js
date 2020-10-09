@@ -1,5 +1,5 @@
 import {
-    Box, Dialog, Grid, Slide,
+    Box, Dialog, Grid, Slide, useTheme,
 } from '@material-ui/core';
 import { TabContext, TabPanel } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/styles';
@@ -8,42 +8,41 @@ import Header from 'pages/profile/components/Header.js';
 import InternalDetails from 'pages/profile/components/InternalDetails.js';
 import Sidebar from 'pages/profile/components/Sidebar.js';
 import { navs } from 'pages/profile/constant.js';
-import ProfileService from 'pages/profile/services';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-const propTypes = { open: PropTypes.bool };
+const propTypes = {
+    open: PropTypes.bool,
+    onClose: PropTypes.func.isRequired,
+};
 const defaultProps = { open: true };
 
 const useStyles = makeStyles((theme) => ({
     content: {
         flexGrow: 1,
         padding: theme.spacing(3),
+        overflow: 'hidden',
+
+        [theme.breakpoints.down('md')]: {
+            padding: theme.spacing(0),
+        },
     },
     toolbar: theme.mixins.toolbar,
 }));
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="up" ref={ref} {...props} />);
 
-function Profile({ open }) {
+function Profile({ open, onClose }) {
     const classes = useStyles();
+    const theme = useTheme();
     const dispatch = useDispatch();
-    const [data, setData] = useState({});
-    const [fetching, setFetching] = useState(false);
+    const { effects } = useSelector((state) => state.loading);
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
-    const [activeKey, setActiveKey] = useState(navs[1].key);
+    const [activeKey, setActiveKey] = useState(navs[0].key);
 
     useEffect(() => {
-        setFetching(true);
-
         dispatch.business.fetchSingle();
-
-        ProfileService.get()
-            .then((response) => {
-                setFetching(false);
-                setData(response);
-            });
     }, []);
 
     const handleDrawerToggle = () => {
@@ -56,13 +55,12 @@ function Profile({ open }) {
 
     return (
         <Dialog fullScreen open={open} TransitionComponent={Transition}>
-            {fetching ? <Progress />
+            {effects.business.find ? <Progress />
                 : (
                     <Box display="flex">
-                        <Header onDrawerToggle={handleDrawerToggle} />
+                        <Header onDrawerToggle={handleDrawerToggle} onCloseClick={onClose} />
 
                         <Sidebar
-                            data={data}
                             activeKey={activeKey}
                             open={drawerIsOpen}
                             onTabChange={handleTabChange}
@@ -72,18 +70,17 @@ function Profile({ open }) {
                         <main className={classes.content}>
                             <div className={classes.toolbar} />
 
-                            <Grid container spacing={4}>
-                                <Grid item md={8}>
+                            <Grid container spacing={theme.breakpoints.down('md') ? 0 : 4}>
+                                <Grid item md={8} xs={12}>
                                     <TabContext value={activeKey}>
                                         {navs.map(({ key, element: Component }) => (
                                             <TabPanel value={key} key={key}>
                                                 <Component />
                                             </TabPanel>
                                         ))}
-                                        {/* <LeadForm /> */}
                                     </TabContext>
                                 </Grid>
-                                <Grid item md={4}>
+                                <Grid item md={4} xs={12}>
                                     <InternalDetails />
                                 </Grid>
                             </Grid>

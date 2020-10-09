@@ -8,7 +8,6 @@ import FormHeader from 'pages/profile/components/FormHeader.js';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Fade from 'react-reveal/Fade';
 
 const propTypes = { onSubmit: PropTypes.func.isRequired };
 const defaultProps = {};
@@ -56,43 +55,39 @@ function SalesForm({ onSubmit }) {
                         <FormControl fullWidth margin="normal">
                             <FormLabel className={classes.formLabel}>Lead Owner</FormLabel>
 
-                            <Fade spy={editMode} duration={150}>
-                                {editMode
-                                    ? (
-                                        <Field
-                                            component={TextField}
-                                            select
-                                            fullWidth
-                                            size="small"
-                                            name="internal_details.lead_owner"
-                                            variant="outlined"
-                                        >
-                                            {availableFilters.map((option) => (
-                                                <MenuItem key={option} value={option}>
-                                                    {option}
-                                                </MenuItem>
-                                            ))}
-                                        </Field>
-                                    ) : <Typography>{get(item, 'internal_details.lead_owner')}</Typography>}
-                            </Fade>
+                            {editMode
+                                ? (
+                                    <Field
+                                        component={TextField}
+                                        select
+                                        fullWidth
+                                        size="small"
+                                        name="internal_details.lead_owner"
+                                        variant="outlined"
+                                    >
+                                        {availableFilters.map((option) => (
+                                            <MenuItem key={option} value={option}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </Field>
+                                ) : <Typography>{get(item, 'internal_details.lead_owner')}</Typography>}
                         </FormControl>
 
                         <FormControl fullWidth margin="normal">
                             <FormLabel className={classes.formLabel}>Notes</FormLabel>
-                            <Fade spy={editMode} duration={150}>
 
-                                {editMode
-                                    ? (
-                                        <Field
-                                            component={TextField}
-                                            fullWidth
-                                            size="small"
-                                            name="internal_details.lead_owner_notes"
-                                            variant="outlined"
-                                        />
-                                    )
-                                    : <Typography>{get(item, 'internal_details.lead_owner_notes') ?? '-'}</Typography>}
-                            </Fade>
+                            {editMode
+                                ? (
+                                    <Field
+                                        component={TextField}
+                                        fullWidth
+                                        size="small"
+                                        name="internal_details.lead_owner_notes"
+                                        variant="outlined"
+                                    />
+                                )
+                                : <Typography>{get(item, 'internal_details.lead_owner_notes') ?? '-'}</Typography>}
                         </FormControl>
 
                         {editMode && <ActionForm onCancelClick={handleEditToggle} isLoading={isSubmitting} />}

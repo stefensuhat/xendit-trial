@@ -20,6 +20,7 @@
     "collect.js": "^4.28.2",
     "date-fns": "^2.16.1",
     "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
     "formik": "^2.2.0",
     "formik-material-ui": "^3.0.0",
     "history": "^5.0.0",
@@ -29,7 +30,6 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
-    "react-reveal": "^1.2.2",
     "react-router": "^6.0.0-beta.0",
     "react-router-dom": "^6.0.0-beta.0",
     "react-scripts": "3.4.3"
@@ -42,6 +42,7 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.21.3",
     "eslint-plugin-react-hooks": "^4.1.2",
+    "moxios": "^0.4.0",
     "react-app-rewired": "^2.1.6"
   },
   "scripts": {
@@ -60,14 +61,21 @@
       "document": true,
       "window": true
     },
+    "overrides": [
+      {
+        "files": [
+          "**/*.test.js"
+        ],
+        "env": {
+          "jest": true
+        }
+      }
+    ],
     "settings": {
       "import/resolver": {
         "node": {
           "paths": [
-            "src",
-            "src/pages",
-            "src/components",
-            "src/constants"
+            "src"
           ]
         }
       }

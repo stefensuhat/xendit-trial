@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core';
+import { Box, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import MboForm from 'pages/profile/components/MboForm.js';
 import SalesForm from 'pages/profile/components/SalesForm.js';
@@ -24,7 +24,7 @@ function InternalDetails() {
     };
 
     return (
-        <>
+        <Box p={2}>
             <Typography variant="h5" className={classes.title}>Internal Details</Typography>
 
             <SalesForm onSubmit={onSubmit} />
@@ -32,7 +32,7 @@ function InternalDetails() {
             <MboForm onSubmit={onSubmit} />
 
             <StatusForm />
-        </>
+        </Box>
     );
 }
 

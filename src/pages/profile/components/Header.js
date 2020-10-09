@@ -8,7 +8,7 @@ import { drawerWidth } from 'pages/profile/constant.js';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const propTypes = { onDrawerToggle: PropTypes.func.isRequired };
+const propTypes = { onDrawerToggle: PropTypes.func.isRequired, onCloseClick: PropTypes.func.isRequired, };
 const defaultProps = {};
 
 const useStyles = makeStyles((theme) => ({
@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Header({ onDrawerToggle }) {
+function Header({ onDrawerToggle, onCloseClick }) {
     const classes = useStyles();
 
     return (
@@ -44,7 +44,7 @@ function Header({ onDrawerToggle }) {
                     </IconButton>
                 </Hidden>
                 <Box className={classes.title} />
-                <IconButton edge="start" color="primary" aria-label="close">
+                <IconButton edge="start" color="primary" aria-label="close" onClick={onCloseClick}>
                     <CloseIcon />
                 </IconButton>
             </Toolbar>

@@ -1,8 +1,5 @@
-import {
-    Box, Button, FormControl, FormLabel, MenuItem, Paper, Typography,
-} from '@material-ui/core';
+import { Box, FormControl, FormLabel, MenuItem, Paper, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { LoadingButton } from 'components';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import get from 'lodash/get';
@@ -11,7 +8,6 @@ import FormHeader from 'pages/profile/components/FormHeader.js';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Fade from 'react-reveal/Fade';
 
 const propTypes = { onSubmit: PropTypes.func.isRequired };
 const defaultProps = {};
@@ -58,44 +54,40 @@ function MboForm({ onSubmit }) {
                     <Form>
                         <FormControl fullWidth margin="normal">
                             <FormLabel className={classes.formLabel}>MBO Personnel</FormLabel>
-                            <Fade spy={editMode} duration={150}>
 
-                                {editMode
-                                    ? (
-                                        <Field
-                                            component={TextField}
-                                            select
-                                            fullWidth
-                                            size="small"
-                                            name="internal_details.mbo_personnel"
-                                            variant="outlined"
-                                        >
-                                            {availableFilters.map((option) => (
-                                                <MenuItem key={option} value={option}>
-                                                    {option}
-                                                </MenuItem>
-                                            ))}
-                                        </Field>
-                                    ) : <Typography>{get(item, 'internal_details.mbo_personnel')}</Typography>}
-                            </Fade>
+                            {editMode
+                                ? (
+                                    <Field
+                                        component={TextField}
+                                        select
+                                        fullWidth
+                                        size="small"
+                                        name="internal_details.mbo_personnel"
+                                        variant="outlined"
+                                    >
+                                        {availableFilters.map((option) => (
+                                            <MenuItem key={option} value={option}>
+                                                {option}
+                                            </MenuItem>
+                                        ))}
+                                    </Field>
+                                ) : <Typography>{get(item, 'internal_details.mbo_personnel')}</Typography>}
                         </FormControl>
 
                         <FormControl fullWidth margin="normal">
                             <FormLabel className={classes.formLabel}>Notes</FormLabel>
-                            <Fade spy={editMode} duration={150}>
 
-                                {editMode
-                                    ? (
-                                        <Field
-                                            component={TextField}
-                                            fullWidth
-                                            size="small"
-                                            name="internal_details.mbo_personnel_notes"
-                                            variant="outlined"
-                                        />
-                                    )
-                                    : <Typography>{get(item, 'internal_details.mbo_personnel_notes') ?? '-'}</Typography>}
-                            </Fade>
+                            {editMode
+                                ? (
+                                    <Field
+                                        component={TextField}
+                                        fullWidth
+                                        size="small"
+                                        name="internal_details.mbo_personnel_notes"
+                                        variant="outlined"
+                                    />
+                                )
+                                : <Typography>{get(item, 'internal_details.mbo_personnel_notes') ?? '-'}</Typography>}
                         </FormControl>
 
                         {editMode && <ActionForm onCancelClick={handleEditToggle} isLoading={isSubmitting} />}

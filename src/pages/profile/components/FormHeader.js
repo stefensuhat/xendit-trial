@@ -2,7 +2,6 @@ import { Box, IconButton, Typography } from '@material-ui/core';
 import { CloseOutlined, EditOutlined } from '@material-ui/icons';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Bounce from 'react-reveal/Bounce';
 
 const propTypes = {
     title: PropTypes.string,
@@ -22,9 +21,7 @@ function FormHeader({
             <Typography variant="h6" color="primary">{title}</Typography>
             {hasEdit && (
                 <IconButton onClick={onEditClick}>
-                    <Bounce spy={!!editMode}>
                         {editMode ? <CloseOutlined fontSize="small" /> : <EditOutlined fontSize="small" />}
-                    </Bounce>
                 </IconButton>
             )}
         </Box>

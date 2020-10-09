@@ -4,14 +4,13 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import collect from 'collect.js';
 import { Layout, Progress } from 'components';
-import Profile from 'pages/profile/Profile.js';
 import {
     TableCell as CustomCell, TableHead, TablePagination, TableToolbar,
 } from 'pages/home/components';
-import { columns } from 'utils/constant.js';
-import services from 'pages/home/services.js';
+import Profile from 'pages/profile/Profile.js';
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { columns } from 'utils/constant.js';
 
 const useStyles = makeStyles(() => ({
     paper: {
@@ -22,8 +21,9 @@ const useStyles = makeStyles(() => ({
 function Home() {
     const classes = useStyles();
     const dispatch = useDispatch();
-    const [fetching, setFetching] = useState(false);
-    const [data, setData] = useState([]);
+    const { items } = useSelector((state) => state.business);
+    const { effects } = useSelector((state) => state.loading);
+    const [detailIsOpen, setDetailIsOpen] = useState(false);
     const [computedData, setComputedData] = useState([]);
     const [page, setPage] = useState(0);
     const [filter, setFilter] = React.useState([]);
@@ -31,6 +31,8 @@ function Home() {
     const [orderBy, setOrderBy] = React.useState('asc');
     const [rowsPerPage, setRowsPerPage] = useState(10);
     // const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
+
+    const handleDetailToggle = () => setDetailIsOpen((current) => !current);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -60,18 +62,15 @@ function Home() {
     };
 
     useEffect(() => {
-        setFetching(true);
         dispatch.business.fetch();
-        services.get()
-            .then((response) => {
-                setData(response);
-                setComputedData(response);
-                setFetching(false);
-            });
     }, []);
 
     useEffect(() => {
-        const filteredData = data.filter((item) => {
+        setComputedData(items);
+    }, [items]);
+
+    useEffect(() => {
+        const filteredData = items.filter((item) => {
             let exists = true;
 
             filter.map((f) => {
@@ -99,7 +98,7 @@ function Home() {
 
     return (
         <Layout>
-            {fetching ? <Progress /> : (
+            {effects.business.fetch ? <Progress /> : (
                 <Paper className={classes.paper}>
                     <TableToolbar filters={filter} onFilterDelete={handleFilterDelete} />
 
@@ -107,7 +106,7 @@ function Home() {
                         <Table>
                             <TableHead
                                 classes={classes}
-                                data={data}
+                                data={items}
                                 order={order}
                                 orderBy={orderBy}
                                 onSortClick={handleSortClick}
@@ -119,7 +118,12 @@ function Home() {
                                     .all()
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                     .map((row) => (
-                                        <CustomCell key={row.Business_id} data={row} columns={columns} />
+                                        <CustomCell
+                                            key={row.Business_id}
+                                            data={row}
+                                            columns={columns}
+                                            onDetailClick={handleDetailToggle}
+                                        />
                                     ))}
 
                             </TableBody>
@@ -139,7 +143,7 @@ function Home() {
                 </Paper>
             )}
 
-            <Profile />
+            <Profile open={detailIsOpen} onClose={handleDetailToggle} />
         </Layout>
     );
 }

@@ -1122,8 +1122,8 @@
       },
       "internal_details": {
         "lead_owner": "Chanel",
-        "lead_owner_notes": "notess",
-        "mbo_personnel": "Chanel",
+        "lead_owner_notes": "Noted 1",
+        "mbo_personnel": "Fadel",
         "mbo_personnel_notes": "Notes"
       },
       "business_details": {
@@ -1149,8 +1149,8 @@
         "authorized_signatory_phone_number": "111 222 333",
         "authorized_signatory_npwp_number": "111 222 333",
         "authorized_signatory_ktp_number": "111 222 333",
-        "pic_role": "Employee",
-        "pic_full_name": "Arjuna",
+        "pic_role": "Director",
+        "pic_full_name": "Arjuna 1",
         "pic_email": "arjuna@ra.men",
         "pic_phone_number": "111 222 333"
       }

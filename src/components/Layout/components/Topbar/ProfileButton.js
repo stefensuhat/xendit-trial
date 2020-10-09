@@ -2,7 +2,6 @@ import Button from '@material-ui/core/Button';
 import MenuItem from '@material-ui/core/MenuItem';
 import Paper from '@material-ui/core/Paper';
 import Popover from '@material-ui/core/Popover';
-import { ArrowDropDown } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/styles';
 import React from 'react';
 // import { useDispatch, useSelector } from 'react-redux';
@@ -22,9 +21,9 @@ function ProfileButton() {
     const open = Boolean(anchorEl);
     // const dispatch = useDispatch();
     // const { profile } = useSelector((state) => state.auth);
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    // const handleClick = (event) => {
+    //     setAnchorEl(event.currentTarget);
+    // };
 
     const handleClose = () => {
         setAnchorEl(null);
@@ -44,10 +43,10 @@ function ProfileButton() {
                 color="default"
                 variant="contained"
                 aria-haspopup="true"
-                onClick={handleClick}
+                // onClick={handleClick}
             >
                 Stefen
-                <ArrowDropDown />
+                {/* <ArrowDropDown /> */}
             </Button>
 
             <Popover

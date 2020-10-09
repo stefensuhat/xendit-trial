@@ -1,4 +1,6 @@
-import { Button, Chip, TableCell as MuiTableCell, TableRow, Typography } from '@material-ui/core';
+import {
+    Button, Chip, TableCell as MuiTableCell, TableRow, Typography,
+} from '@material-ui/core';
 import { format, parseISO } from 'date-fns';
 import styles from 'pages/home/components/styles.js';
 import PropTypes from 'prop-types';
@@ -8,13 +10,14 @@ import { status } from 'utils/constant.js';
 const propTypes = {
     columns: PropTypes.array,
     data: PropTypes.any,
+    onDetailClick: PropTypes.func.isRequired,
 };
 const defaultProps = {
     data: {},
     columns: [],
 };
 
-function TableCell({ columns, data }) {
+function TableCell({ columns, data, onDetailClick }) {
     const classes = styles();
 
     function renderChip(value) {
@@ -59,7 +62,7 @@ function TableCell({ columns, data }) {
             })}
 
             <MuiTableCell align="right">
-                <Button aria-label="edit" variant="outlined" color="primary" onClick={() => console.log(data)}>
+                <Button id="detail-button" aria-label="edit" variant="outlined" color="primary" onClick={() => onDetailClick()}>
                     DETAILS
                 </Button>
             </MuiTableCell>
