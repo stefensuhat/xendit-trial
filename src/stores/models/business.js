@@ -7,11 +7,18 @@ const defaultState = {
     items: [],
     availableFilters: [],
     item: {},
+    kycEditMode: false,
 };
 
 const model = {
     state: defaultState,
     reducers: {
+        toggleKycEditMode(state, payload) {
+            return {
+                ...state,
+                kycEditMode: payload,
+            };
+        },
         fetchResponse(state, payload) {
             return {
                 ...state,

@@ -1,13 +1,14 @@
-import { Box, Dialog, Slide } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+import {
+    Box, Dialog, Grid, Slide,
+} from '@material-ui/core';
+import { TabContext, TabPanel } from '@material-ui/lab';
 import { makeStyles } from '@material-ui/styles';
-import { Progress } from 'components/index.js';
+import { Progress } from 'components/Progress';
 import Header from 'pages/profile/components/Header.js';
 import InternalDetails from 'pages/profile/components/InternalDetails.js';
-import LeadForm from 'pages/profile/components/LeadForm.js';
 import Sidebar from 'pages/profile/components/Sidebar.js';
+import { navs } from 'pages/profile/constant.js';
 import ProfileService from 'pages/profile/services';
-import TabContextProvider from 'pages/profile/TabContext.js';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -31,6 +32,7 @@ function Profile({ open }) {
     const [data, setData] = useState({});
     const [fetching, setFetching] = useState(false);
     const [drawerIsOpen, setDrawerIsOpen] = useState(false);
+    const [activeKey, setActiveKey] = useState(navs[1].key);
 
     useEffect(() => {
         setFetching(true);
@@ -48,30 +50,46 @@ function Profile({ open }) {
         setDrawerIsOpen(!drawerIsOpen);
     };
 
+    const handleTabChange = (key) => {
+        setActiveKey(key);
+    };
+
     return (
         <Dialog fullScreen open={open} TransitionComponent={Transition}>
-            <TabContextProvider>
-                {fetching ? <Progress /> : (
+            {fetching ? <Progress />
+                : (
                     <Box display="flex">
                         <Header onDrawerToggle={handleDrawerToggle} />
 
-                        <Sidebar data={data} open={drawerIsOpen} onDrawerClose={handleDrawerToggle} />
+                        <Sidebar
+                            data={data}
+                            activeKey={activeKey}
+                            open={drawerIsOpen}
+                            onTabChange={handleTabChange}
+                            onDrawerClose={handleDrawerToggle}
+                        />
 
                         <main className={classes.content}>
                             <div className={classes.toolbar} />
 
                             <Grid container spacing={4}>
-                                <Grid item md={6}>
-                                    <LeadForm />
+                                <Grid item md={8}>
+                                    <TabContext value={activeKey}>
+                                        {navs.map(({ key, element: Component }) => (
+                                            <TabPanel value={key} key={key}>
+                                                <Component />
+                                            </TabPanel>
+                                        ))}
+                                        {/* <LeadForm /> */}
+                                    </TabContext>
                                 </Grid>
-                                <Grid item md={6}>
+                                <Grid item md={4}>
                                     <InternalDetails />
                                 </Grid>
                             </Grid>
                         </main>
                     </Box>
                 )}
-            </TabContextProvider>
         </Dialog>
     );
 }

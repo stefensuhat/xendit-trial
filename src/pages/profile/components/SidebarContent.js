@@ -4,13 +4,17 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import get from 'lodash/get';
 import upperCase from 'lodash/upperCase';
-import { TabContext } from 'pages/profile/TabContext.js';
+import { navs } from 'pages/profile/constant.js';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 
 const imgUrl = 'https://cdn.icon-icons.com/icons2/1556/PNG/512/3377055-bowl-food-noodle-ramen_107434.png';
 
-const propTypes = { data: PropTypes.shape.isRequired };
+const propTypes = {
+    activeKey: PropTypes.string.isRequired,
+    onTabChange: PropTypes.func.isRequired,
+};
 const defaultProps = {};
 
 const useStyles = makeStyles((theme) => ({
@@ -26,9 +30,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function SidebarContent({ data }) {
+function SidebarContent({ activeKey, onTabChange }) {
     const classes = useStyles();
-    const { navs, activeKey, onChangeTab } = useContext(TabContext);
+    const { item } = useSelector((state) => state.business);
 
     return (
         <Box>
@@ -37,14 +41,14 @@ function SidebarContent({ data }) {
 
                 <Box my={1}>
                     <Typography variant="subtitle1" className={classes.name}>
-                        {get(data, 'business_name')}
+                        {get(item, 'business_name')}
                     </Typography>
                     <Typography variant="subtitle2" align="center">
-                        {get(data, 'registration_details.entity_type')}
+                        {get(item, 'registration_details.entity_type')}
                     </Typography>
                 </Box>
 
-                <Chip label={upperCase(get(data, 'account_status'))} />
+                <Chip label={upperCase(get(item, 'account_status'))} />
 
             </Box>
 
@@ -55,7 +59,7 @@ function SidebarContent({ data }) {
                             button
                             key={nav.key}
                             selected={activeKey === nav.key}
-                            onClick={() => onChangeTab(nav.key)}
+                            onClick={() => onTabChange(nav.key)}
                         >
                             <ListItemText>{nav.label}</ListItemText>
                         </ListItem>

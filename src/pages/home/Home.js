@@ -27,8 +27,8 @@ function Home() {
     const [computedData, setComputedData] = useState([]);
     const [page, setPage] = useState(0);
     const [filter, setFilter] = React.useState([]);
-    const [order, setOrder] = React.useState('asc');
-    const [orderBy, setOrderBy] = React.useState('Registration_Time');
+    const [order, setOrder] = React.useState('Registration_Time');
+    const [orderBy, setOrderBy] = React.useState('asc');
     const [rowsPerPage, setRowsPerPage] = useState(10);
     // const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - page * rowsPerPage);
 

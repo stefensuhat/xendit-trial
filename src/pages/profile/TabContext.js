@@ -2,16 +2,16 @@ import KycForm from 'pages/profile/components/KycForm.js';
 import LeadForm from 'pages/profile/components/LeadForm.js';
 import React, { useState } from 'react';
 
-const navs = [
+export const navs = [
     {
         key: 'lead',
         label: 'Lead',
-        element: KycForm,
+        element: LeadForm,
     },
     {
         key: 'kyc',
         label: 'KYC',
-        element: LeadForm,
+        element: KycForm,
     },
 ];
 
@@ -23,9 +23,11 @@ export const TabContext = React.createContext({
 });
 
 function TabContextProvider({ children }) {
-    const [activeKey, setActiveKey] = useState('lead');
+    const [activeKey, setActiveKey] = useState(navs[0].key);
 
     function onChangeTab(value) {
+        console.log('value: ', value);
+
         setActiveKey(value);
     }
 

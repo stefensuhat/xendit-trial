@@ -1,17 +1,16 @@
-import {
-    Button, Chip, TableCell as MuiTableCell, TableRow, Typography,
-} from '@material-ui/core';
+import { Button, Chip, TableCell as MuiTableCell, TableRow, Typography } from '@material-ui/core';
 import { format, parseISO } from 'date-fns';
-import PropTypes from 'prop-types';
-import {status} from 'utils/constant.js';
-import React from 'react';
 import styles from 'pages/home/components/styles.js';
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
+import { status } from 'utils/constant.js';
 
 const propTypes = {
     columns: PropTypes.array,
-    data: PropTypes.shape.isRequired,
+    data: PropTypes.any,
 };
 const defaultProps = {
+    data: {},
     columns: [],
 };
 
@@ -38,7 +37,7 @@ function TableCell({ columns, data }) {
                             }
 
                             if (column.id === 'Account_status') {
-                                return renderChip(data[key]);
+                                return <Fragment key={key}>{renderChip(data[key])}</Fragment>;
                             }
 
                             return (

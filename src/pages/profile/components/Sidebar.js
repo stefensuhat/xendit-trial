@@ -1,14 +1,15 @@
-import { Typography, Drawer, Hidden } from '@material-ui/core';
+import { Drawer, Hidden } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import SidebarContent from 'pages/profile/components/SidebarContent.js';
 import { drawerWidth } from 'pages/profile/constant.js';
-import { TabContext } from 'pages/profile/TabContext.js';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 
 const propTypes = {
     open: PropTypes.bool,
     onDrawerClose: PropTypes.func.isRequired,
+    activeKey: PropTypes.string.isRequired,
+    onTabChange: PropTypes.func.isRequired,
 };
 const defaultProps = { open: false };
 
@@ -39,8 +40,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Sidebar({ open, data, onDrawerClose }) {
+function Sidebar({
+    open, activeKey, onTabChange, onDrawerClose,
+}) {
     const classes = useStyles();
+
+    const content = (
+        <SidebarContent onTabChange={onTabChange} activeKey={activeKey} />
+    );
 
     return (
         <nav className={classes.drawer} aria-label="mailbox folders">
@@ -57,7 +64,7 @@ function Sidebar({ open, data, onDrawerClose }) {
                         keepMounted: true, // Better open performance on mobile.
                     }}
                 >
-                    <SidebarContent data={data} />
+                    {content}
                 </Drawer>
             </Hidden>
             <Hidden xsDown implementation="css">
@@ -66,7 +73,7 @@ function Sidebar({ open, data, onDrawerClose }) {
                     variant="permanent"
                     open
                 >
-                    <SidebarContent data={data} />
+                    {content}
                 </Drawer>
             </Hidden>
         </nav>

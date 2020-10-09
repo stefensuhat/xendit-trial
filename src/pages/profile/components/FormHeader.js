@@ -22,7 +22,7 @@ function FormHeader({
             <Typography variant="h6" color="primary">{title}</Typography>
             {hasEdit && (
                 <IconButton onClick={onEditClick}>
-                    <Bounce spy={editMode}>
+                    <Bounce spy={!!editMode}>
                         {editMode ? <CloseOutlined fontSize="small" /> : <EditOutlined fontSize="small" />}
                     </Bounce>
                 </IconButton>

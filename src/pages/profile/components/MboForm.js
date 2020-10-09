@@ -6,6 +6,7 @@ import { LoadingButton } from 'components';
 import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import get from 'lodash/get';
+import ActionForm from 'pages/profile/components/ActionForm.js';
 import FormHeader from 'pages/profile/components/FormHeader.js';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
@@ -97,14 +98,7 @@ function MboForm({ onSubmit }) {
                             </Fade>
                         </FormControl>
 
-                        {editMode ? (
-                            <>
-                                <LoadingButton type="submit" loading={isSubmitting} variant="contained">
-                                    Save
-                                </LoadingButton>
-                                <Button onClick={handleEditToggle}>Cancel</Button>
-                            </>
-                        ) : <> </>}
+                        {editMode && <ActionForm onCancelClick={handleEditToggle} isLoading={isSubmitting} />}
                     </Form>
                 )}
             </Formik>
