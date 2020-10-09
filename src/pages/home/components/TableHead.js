@@ -11,7 +11,7 @@ import {
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { makeStyles } from '@material-ui/styles';
 import collect from 'collect.js';
-import { columns } from 'pages/home/constant.js';
+import { columns } from 'utils/constant.js';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 

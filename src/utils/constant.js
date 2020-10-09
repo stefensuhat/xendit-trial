@@ -1,11 +1,16 @@
 export const status = {
-    AWAITING_DOCS: 'AWAITING_DOCS',
-    AWAITING_SIGN: 'AWAITING_SIGN',
-    PENDING_VERIFICATION: 'PENDING_VERIFICATION',
-    PENDING_LIVE: 'PENDING_LIVE',
+    AWAITING_DOCS: 'AWAITING DOCS',
+    AWAITING_SIGN: 'AWAITING SIGN',
+    PENDING_VERIFICATION: 'PENDING VERIFICATION',
+    PENDING_LIVE: 'PENDING LIVE',
     LIVE: 'LIVE',
     DECLINED: 'DECLINED',
     SUSPEND: 'SUSPEND',
+};
+
+export const kycStatus = {
+    AWAITING_DATA: 'AWAITING DATA',
+
 };
 
 export const columns = [
@@ -13,7 +18,10 @@ export const columns = [
         id: 'Business_name|Business_email|Business_id',
         label: 'Business Name / Email / Id',
     },
-    { id: 'Entity_type', label: 'Entity Type' },
+    {
+        id: 'Entity_type',
+        label: 'Entity Type',
+    },
     {
         id: 'Lead_owner',
         label: 'Lead Owner',

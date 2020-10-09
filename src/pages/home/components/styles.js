@@ -1,6 +1,6 @@
 import { fade } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { status } from 'pages/home/constant.js';
+import { status } from 'utils/constant.js';
 
 const useStyles = makeStyles(({ palette }) => {
     const bgOpacity = 0.3;

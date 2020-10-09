@@ -1,6 +1,6 @@
 import { Chip, Toolbar, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-import { columns } from 'pages/home/constant.js';
+import { columns } from 'utils/constant.js';
 import PropTypes from 'prop-types';
 import React from 'react';
 

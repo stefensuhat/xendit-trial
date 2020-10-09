@@ -1,6 +1,8 @@
 import Layout from './Layout';
 
+export { default as LoadingButton } from './LoadingButton';
+
+export * from './Progress';
 export * from './Table';
-export { default as Progress } from './Progress';
 
 export { Layout };

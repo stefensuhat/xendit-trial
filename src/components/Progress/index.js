@@ -1,1 +1,2 @@
-export { default } from './Progress.js';
+export { default as Progress } from './Progress';
+export { default as Loader } from './Loader';

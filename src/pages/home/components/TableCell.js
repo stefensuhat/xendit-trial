@@ -3,6 +3,7 @@ import {
 } from '@material-ui/core';
 import { format, parseISO } from 'date-fns';
 import PropTypes from 'prop-types';
+import {status} from 'utils/constant.js';
 import React from 'react';
 import styles from 'pages/home/components/styles.js';
 
@@ -18,7 +19,9 @@ function TableCell({ columns, data }) {
     const classes = styles();
 
     function renderChip(value) {
-        return <Chip className={classes[value]} label={value} />;
+        const getStatus = status[value];
+
+        return <Chip className={classes[getStatus]} label={getStatus} />;
     }
 
     return (

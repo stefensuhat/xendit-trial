@@ -4,11 +4,14 @@ import {
 import { makeStyles } from '@material-ui/styles';
 import collect from 'collect.js';
 import { Layout, Progress } from 'components';
-import { TableCell as CustomCell, TableHead, TablePagination } from 'pages/home/components';
-import TableToolbar from 'pages/home/components/TableToolbar.js';
-import { columns } from 'pages/home/constant.js';
+import Profile from 'pages/profile/Profile.js';
+import {
+    TableCell as CustomCell, TableHead, TablePagination, TableToolbar,
+} from 'pages/home/components';
+import { columns } from 'utils/constant.js';
 import services from 'pages/home/services.js';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles(() => ({
     paper: {
@@ -18,6 +21,7 @@ const useStyles = makeStyles(() => ({
 
 function Home() {
     const classes = useStyles();
+    const dispatch = useDispatch();
     const [fetching, setFetching] = useState(false);
     const [data, setData] = useState([]);
     const [computedData, setComputedData] = useState([]);
@@ -57,6 +61,7 @@ function Home() {
 
     useEffect(() => {
         setFetching(true);
+        dispatch.business.fetch();
         services.get()
             .then((response) => {
                 setData(response);
@@ -74,6 +79,8 @@ function Home() {
                     .find((key) => f.key === key);
 
                 if (exists) exists = item[find] === f.value;
+
+                return true;
             });
 
             return exists;
@@ -108,12 +115,6 @@ function Home() {
                             />
 
                             <TableBody>
-                                {/* {emptyRows > 0 && ( */}
-                                {/*    <TableRow style={{ height: 53 * emptyRows }}> */}
-                                {/*        <TableCell colSpan={data.length + 1} /> */}
-                                {/*    </TableRow> */}
-                                {/* )} */}
-
                                 {sortedData
                                     .all()
                                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
@@ -137,6 +138,8 @@ function Home() {
                     </TableContainer>
                 </Paper>
             )}
+
+            <Profile />
         </Layout>
     );
 }
